@@ -32,9 +32,9 @@ http  ://  www.foo.com  &nbsp;&nbsp;:80  &nbsp;&nbsp;  /a/
 一个web服务器上有两个网站A、B，且在同一个文件系统里。黑客的目标是A，但直接入侵A太难，而入侵B成功了。如果AB没进行有效的文件权限配置，攻克A就轻而易举了。
      + 缺陷：A与B之间过于信任，未做很好的分离。
      + 启示：安全类似木桶原理，短的那块板决定了木桶实际能装多少水。一个web服务器，如果其上的网站没做好权限分离，没控制好信任关系，则整体安全性就由安全性最差的那个网站决定。
-  * 场景二：  
-  很多网站都嵌入了第三方的访问统计脚本，嵌入的方式是使用`<script>`标签引用，这时就等于建立了信任关系，如果第三方的统计脚本被黑客挂马，那么这些网站也都会被危及。
-  这种信任关系很普遍：服务器与服务器、网站与网站、web服务的不同子域、web层面与浏览器第三方插件、web层面与浏览器特殊API、浏览器特殊API与本地文件系统、嵌入的flash与当前DOM树、不同协议之间等等。一个安全性非常好的网站有可能会因为建立了不可靠的信任关系，导致网站被黑。
+  * 场景二：   
+很多网站都嵌入了第三方的访问统计脚本，嵌入的方式是使用`<script>`标签引用，这时就等于建立了信任关系，如果第三方的统计脚本被黑客挂马，那么这些网站也都会被危及。  
+这种信任关系很普遍：服务器与服务器、网站与网站、web服务的不同子域、web层面与浏览器第三方插件、web层面与浏览器特殊API、浏览器特殊API与本地文件系统、嵌入的flash与当前DOM树、不同协议之间等等。一个安全性非常好的网站有可能会因为建立了不可靠的信任关系，导致网站被黑。
 
 
 ####0x08  (origin: P10)  CSRF跨站请求伪造
@@ -107,31 +107,32 @@ Web容器、操作系统、服务端语言及对应的版本。
 </html>
 ```
 - 用DOM树形结构描述
-  <html>
-  -<head>
-    -<title>
-      -HTML
-  -<mate>
-      -@http-equiv
-        -Content-Type
-      -@content
-        -text/html
-      -@charset
-        -uft-8
-                -<style>
-                  -body{font-size:14px;}
-                -<script>
-                  -a=1;//这里是脚本
-              -<body>
-                -<div>
-                  -<h1>
-                    -这些都是HTML
-                  -<br />
-                  -<img>
-                    -@src
-                      -http://www.foo.com/logo.jpg
-                    -@title
-                    -这里是图片引用
+
+        <html>
+        -<head>
+          -<title>
+            -HTML
+        -<mate>
+            -@http-equiv
+              -Content-Type
+            -@content
+              -text/html
+            -@charset
+              -uft-8
+                      -<style>
+                        -body{font-size:14px;}
+                      -<script>
+                        -a=1;//这里是脚本
+                    -<body>
+                      -<div>
+                        -<h1>
+                          -这些都是HTML
+                        -<br />
+                        -<img>
+                          -@src
+                            -http://www.foo.com/logo.jpg
+                          -@title
+                          -这里是图片引用
 
 0x0C  (origin: P21)  隐私数据可能存储的位置
 HTML内容中
