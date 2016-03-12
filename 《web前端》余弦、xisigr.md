@@ -108,33 +108,35 @@ Web容器、操作系统、服务端语言及对应的版本。
 ```
 - 用DOM树形结构描述
 
-        <html>
-        -<head>
-          -<title>
-            -HTML
-        -<mate>
-            -@http-equiv
-              -Content-Type
-            -@content
-              -text/html
-            -@charset
-              -uft-8
-        -<style>
-          -body{font-size:14px;}
-        -<script>
-          -a=1;//这里是脚本
-      -<body>
-        -<div>
-          -<h1>
-            -这些都是HTML
-          -<br />
-          -<img>
-            -@src
-              -http://www.foo.com/logo.jpg
-            -@title
-            -这里是图片引用
+```
+<html>
+ -<head>
+   -<title>
+     -HTML
+ -<mate>
+     -@http-equiv
+       -Content-Type
+     -@content
+       -text/html
+     -@charset
+       -uft-8
+ -<style>
+    -body{font-size:14px;}
+  -<script>
+    -a=1;//这里是脚本
+ -<body>
+   -<div>
+     -<h1>
+       -这些都是HTML
+     -<br />
+     -<img>
+       -@src
+         -http://www.foo.com/logo.jpg
+       -@title
+       -这里是图片引用
+```
 
-0x0C  (origin: P21)  隐私数据可能存储的位置
-HTML内容中
-浏览器本地存储中，如Cookies等
-URL地址中
+####0x0C  (origin: P21)  隐私数据可能存储的位置
+- HTML内容中
+- 浏览器本地存储中，如Cookies等
+- URL地址中
