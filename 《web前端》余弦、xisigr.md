@@ -6,7 +6,8 @@
  * substr(2):  结果弹窗 lert(1)
 
 
-####0x02  (Origin:P5)  表1-1 是否同域情况判断
+####0x02  (Origin:P5)  同源策略  表1-1 是否同域情况判断
+- 同源策略规定： 不同域的客户端脚本在没明确授权的情况下，不能读写对方的资源。
 - 同域要求两站点同协议、同域名、同端口  
 http  ://  www.foo.com  &nbsp;&nbsp;:80  &nbsp;&nbsp;  /a/  
 协议&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;域名&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;端口&nbsp;&nbsp;目录  
@@ -15,7 +16,10 @@ http  ://  www.foo.com  &nbsp;&nbsp;:80  &nbsp;&nbsp;  /a/
 ####0x03  （origin:P6）客户端脚本
 - 客户端脚本主要指JavaScript、ActionScript，都遵循ECMAScript脚本标准
 
-####0x04  (origin:P6) 理解AJAX 异步传输
+####0x04  (origin:P6 P25) 理解AJAX 异步传输  AJAX风险
+- 全称为Asynchronous Javascript And XML，即异步的Javascript和XML，  是前端黑客攻击中必用的技术模式
+  +  这里有三个点： 异步、Javascript、 XML
+  +  AJAX严格遵守同源策略
 - 常用场景：对网页的局部数据进行更新时，不需要刷新整个网页，以节省带宽资源
 
 ####0x05  (origin: P7) 资源
@@ -140,3 +144,10 @@ Web容器、操作系统、服务端语言及对应的版本。
 - HTML内容中
 - 浏览器本地存储中，如Cookies等
 - URL地址中
+
+####0x0D (origin: p25)  获取URL地址中的数据
+ - 从window.location或location处可以获取URL地址中的数据
+   + 如 `<script> document.write(location.href);</script>`
+   + 用于获取当前页面的地址（URL）
+   
+####
