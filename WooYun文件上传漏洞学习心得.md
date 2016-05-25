@@ -4,11 +4,11 @@
 ###2.AppCan漏洞大礼包  
 * 在google中搜索site:appcan.cn inurl:login  
   在返回结果中发现一个json数据，里面发现一个名字"张文帅"
-[图片1]（1.jpg)  
+[图片1](img/2_1.jpg)  
 
 * 在burp的请求历史中发现一个自动跳转的地址:http://siteadm.appcan.cn/Daemon/appshow/listinterfaceById?status=1&typeid=82&rows=8&callback=jQuery19103505221238365238_1461031756517&_=1461031756518  
-直接访问http://siteadm.appcan/Daemon 跳转到后台登录地址
-[图片2]()
+直接访问http://siteadm.appcan/Daemon 跳转到后台登录地址  
+[图片2](img/2_2.jpg)
 
 * 想起之前发现的”张文帅”, 打算尝试一下,使用zhangwenshuai,zhangws,zhangwens,zws等用户名, 最后使用用户名zws弱口令123456爆破成功!!(嘻嘻，其实网站现已修改
   
