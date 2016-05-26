@@ -26,4 +26,12 @@
 ###3.某智能自助建站平台SQL注入/上传漏洞已拿到getshell  
 链接：http://wooyun.org/bugs/wooyun-2010-0193742  
 * 我上传了一个图片木马之后怎么找到它的存放路径呢？  
-![图片1](img/3_1.png)
+![图片1](img/3_1.png)  
+  
+###4.中国南方航空公司某站存在任意文件上传漏洞  
+链接：http://wooyun.org/bugs/wooyun-2010-0190447
+* 直接上传php不行。  
+ 试了一下  
+Test.php:a.jpg //重命名为jpg  
+test.php. //可以但是重命名为jpg  
+test.php::$DATA //成功
