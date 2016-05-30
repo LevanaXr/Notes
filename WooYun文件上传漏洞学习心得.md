@@ -36,7 +36,7 @@ Test.php:a.jpg //重命名为jpg
 test.php. //可以但是重命名为jpg  
 test.php::$DATA //成功  
   
-###3.某省安全隐患排查治理信息系统敏感信息泄露/任意文件上传Getshell  
+###5.某省安全隐患排查治理信息系统敏感信息泄露/任意文件上传Getshell  
 链接：http://wooyun.org/bugs/wooyun-2010-0194539  
 * 利用Burp suite进行爆破  
   根据已有经验 登录口无验证码 可爆破 用burp设置用户名为510000-529999，密码123456进行批量测试。  
@@ -47,5 +47,19 @@ test.php::$DATA //成功
 * 找到上传文件点，进行一句话木马上传（可能需改包），菜刀连接  
   1. 使用其中一枚账号登录四川省安全隐患排查治理信息系统政府端，后台公共隐患台账模块存在任意文件上传漏洞，可getshell。
   2. 上传图片处burp抓包该包，上传aspx文件getshell。  
-  3. 菜刀一句话马地址,连接密码ice
+  3. 菜刀一句话马地址,连接密码ice  
   
+###???不是很懂 MaticsoftSNS 1.9版本任意文件上传漏洞/中国人保寿险某分站任意文件上传导致getshell（影响路华救援多个分站/送sql注入）  
+链接：http://wooyun.org/bugs/wooyun-2010-0137397/http://wooyun.org/bugs/wooyun-2010-0192794  
+* 利用最简单的表单实现multipart/form-data方式上传脚本文件  
+ 如下的
+
+```
+<form action="http://localhost:8080/CMSUploadFile.aspx" enctype="multipart/form-data" method="post">
+
+<input type="file" name="upload">
+
+<input type="submit" value="upload">
+
+</form>
+```
