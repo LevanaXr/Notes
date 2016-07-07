@@ -90,7 +90,9 @@
        $file = str_replace("http://"," ", $file); //在传入的$file中搜索http://，替换成空格后，重新赋给$file
        $file = str_replace("https://"," ", $file); // 易绕过，函数str_replace区分大小写，一旦大写等于没做防御
     ?>
-   + High:
+  ```
+  
+  + High:
 
      ```
      <? php
@@ -101,7 +103,8 @@
            exit;
         }
       ?>
-
+    ```
+    
 ###运用实例：
 * 从网上下载copyright2007-2011 易酷CMS Some Rights Reserved版本到本地测试
 * 漏洞利用过程（包含日志文件）： http://www.wooyun.org/bugs/wooyun-2010-061639
