@@ -58,7 +58,7 @@
   * uploading是我们保存的地址
   * 将uploading改为uploading/1.php .jpg（注意php与.之间有一个空格）
   * 来到 Proxy->intercept->Hex， 就可以看到数据包用十六进制显示的样子
-  * 20(也就是空格字符的16进制)改成00(也就是一个截断字符的16进制）这样以来。截断字符后面的都会被截断，也就是忽略掉了，所以uploadimg/1.php .jpg 就变成了uploadimg/1.php
+  * 20(也就是空格字符的16进制)改成00(也就是一个截断字符的16进制）这样以来。截断字符后面的都会被截断，也就是忽略掉了，所以uploading/1.php .jpg 就变成了uploading/1.php
 
 
 ## 第二章  解析导致的上传漏洞
