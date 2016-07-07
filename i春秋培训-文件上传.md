@@ -68,12 +68,9 @@
   * 绝大部分的用户使用的服务器都是Windows2003，而当中又有绝大部分的用户使用IIS6,这样就存在一个致命的漏洞,黑客非常容易就能入侵你的服务器。IIS6.0解析漏洞的利用方法，通常有两种，一种是文件解析，另一种是目录解析。之前已经介绍过文件解析的方法，本次课程将为大家讲解目录解析。该漏洞安全隐患较大，可导致网站的管理权限被盗、网站被黑。
   
   * 当网站是ASP类型时，需要使用ASP一句话木马。一句话中<%eval request["这里是密码"]%>。
-  
-  * Content-Disposition:form-data;name=”path”下面的一行为服务保存文件的相对路径，我们把原本的 uploading/ 改为 uploading/1.asp/, 即在目录uploading/后面加上1.asp/，就将保存路径改为保存在uploading的1.asp下面了
-  
-  * 再将filename="yijuhua.asp"改为yijuhua.jpg
-  
-  * 上传后的整体目录就为： http://www.test.com/uploading/1.asp/yijuhua.jpg
+    1. Content-Disposition:form-data;name=”path”下面的一行为服务保存文件的相对路径，我们把原本的 uploading/ 改为 uploading/1.asp/, 即在目录uploading/后面加上1.asp/，就将保存路径改为保存在uploading的1.asp下面了
+    2. 再将filename="yijuhua.asp"改为yijuhua.jpg
+    3. 上传后的整体目录就为： http://www.test.com/uploading/1.asp/yijuhua.jpg
   
   * 【！原理】：因为IIS解析漏洞会将这个地址探测到斜杠/时认为这里有一个截断，就会将斜杠后面这一段都给注释掉，不会对它进行解析，因此会把木马文件按'1.asp'格式进行解析。
   
