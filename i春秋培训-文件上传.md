@@ -53,10 +53,10 @@
   * 如果不修改尾缀上传上去的文件仍然是.jpg，则仍以.jpg解析，那么就无法执行PHP脚本（也就是一句话执行失败）。
 
 ### 0X04  空字节截断目录路径检测绕过类上传漏洞
-  * 打开BurpLoader抓包，进行截断浏览器给服务器发送的数据包，Proxy->Intercept 点击 intercept off 改为intercept on，截断的数据包将在关闭抓包的时候发送给服务端。
+  * 打开Burpsuite抓包，进行截断浏览器给服务器发送的数据包，Proxy->Intercept 点击 intercept off 改为intercept on，截断的数据包将在关闭抓包的时候发送给服务端。
   * filename后面的信息是我们本地的地址
-  * uploadimg是我们保存的地址
-  * 将uploadimg改为uploadimg/1.php .jpg（注意php与.之间有一个空格）
+  * uploading是我们保存的地址
+  * 将uploading改为uploading/1.php .jpg（注意php与.之间有一个空格）
   * 来到 Proxy->intercept->Hex， 就可以看到数据包用十六进制显示的样子
   * 20(也就是空格字符的16进制)改成00(也就是一个截断字符的16进制）这样以来。截断字符后面的都会被截断，也就是忽略掉了，所以uploadimg/1.php .jpg 就变成了uploadimg/1.php
 
