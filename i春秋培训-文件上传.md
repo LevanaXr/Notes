@@ -246,17 +246,17 @@
   这类漏洞直接配合上传一个代码注入过的白名单文件即可，再利用解析调用/漏洞（想方设法把想上传的文件的扩展名加入到白名单列表里面去）
 
   3. htaccess文件攻击<br>
-  无论是黑名单还是白名单，直接点就是直接攻击.htaccess文件<br>
-     + 1.提供一个代码:<br>
+  无论是黑名单还是白名单，直接点就是直接攻击.htaccess文件
+    + 提供一个代码:<br>
      
-     ```
+    ```
     <FilesMatch "haha">
-        SetHandler application/x-httpd-php
+    SetHandler application/x-httpd-php
     </FileMatch>
-     ```
-    + 2.然后准备一个名叫haha的一句话木马，内容如下:<br>
-      "haha" <?php @eval($_POST['1']);?><br>
-      只要一句话木马的名字包含haha就能够当作php文件解析了，一句话木马的内容一定要包含.htaccess里面定义的"haha"
+    ```
+    + 然后准备一个名叫haha的一句话木马，内容如下:<br>
+    "haha" <?php @eval($_POST['1']);?><br>
+    只要一句话木马的名字包含haha就能够当作php文件解析了，一句话木马的内容一定要包含.htaccess里面定义的"haha"
 
 
 
@@ -267,7 +267,7 @@
   我们这里主要以最常见的图像类型内容检测来举例：
   
   1. 文件幻数检测（文件头检测）<br>
-  主要是检测文件内容开始处的文件幻数，比如图片类型的文件幻数（文件头信息）如下：
+   * 主要是检测文件内容开始处的文件幻数，比如图片类型的文件幻数（文件头信息）如下：
       +  要绕过jpg文件幻数检测就要在文件开头加上：FF D8 FF E0 10  4A 46 49 46  （对应为yoya JFIF）
       +  要绕过gif文件幻数检测就要在文件开头加上：47 49 46 38 39 61 (对应为GIF89a)
       +  要绕过png文件幻数检测就要在文件开头加上：89 50 4E 47(对应| png)
@@ -317,37 +317,38 @@
   * 从攻击角度来分是这样的：
       + 一、直接解析（完全没有防御或有一点简单的防御）<br>
       比如我们直接就可以上传一个扩展名是.php的文件，只需要简单地绕过客户端javascript检测或者服务端MIME类型检测就行了。
+
       + 二、配合解析（有一定程度的防御）<br>
-      我们可以理解为先代码注入到服务器上，上传一个带有一句话木马的图片或文件之类让它待在某个位置，等待这一个解析的配合。（比如php的文件包含解析，web服务器的解析漏洞，.htaccess解析等）
-        1. 本地文件包含解析<br>
-        主要是php的本地文件包含（远程文件包含不属于上传攻击绕过范畴）
-        2. htaccess解析<br>
-        就不用多说了，看看之前.htaccess文件攻击的那个案例，用户自己定义如何去调用解析器解析文件就可以了。
-        3. web应用程序解析漏洞以及其原理
-          - Apache解析漏洞(属于白名单绕过)
-            * 解析：test.php.任意不属于黑名单且不属于Apache解析白名单的名称
-            * 描述：一个文件名为x1.x2.x3的文件，Apache会从x3的位置往x1的位置开始尝试解析，如果x3不属于Apache能解析的扩展名，那么Apache会尝试去解析x2的位置，这样一直往前尝试，直到遇到一个能解析的扩展名为止
-            * 测试：测试了下面这些集成环境，都以它们的最新版本来测试，应该能覆盖所有低版本：
-              + WampServer2.0 All Version(WampServer2.0i/Apache2.2.11)[Success]
-              + WampServer2.1 All Version(WampServer2.1e-x32/Apache2.2.17)[Success]
-              + Wamp5 All Version(Wamp5_1.7.4/Apache2.2.6)[Success]
-              + AppServ 2.4 All Version(AppServ-2.4.9/Apache 2.0.59)[success]
-              + AppServ 2.5 All Version(AppServ-2.5.10/Apache 2.2.8)[success]
-              + AppServ 2.6 All Version(AppServ-2.6.0/Apache 2.2.8)[success]
-              +上面测试过的集成环境都有这个扩展名解析顺序漏洞，然后所有测试过的集成环境都有对php3扩展名按php解析这个小洞（本质上来说这个不算漏洞，只是在针对一些名单不全的黑名单时，能有绕过的机会）
-              （版本还要等测试过才能具体知晓）
-          - IIS解析漏洞
-            * 解析：test.asp/任意文件名| test.asp;任意文件名| 任意文件名/任意文件名.php
-            * 描述：IIS6.0在解析asp格式的时候有两个解析漏洞，一个是如果目录包含".asp"字符串，那么这个目录下所有的文件都会按照asp去解析，另一个是只要文件名中含有".asp;"会优先按asp来解析<br>
-              IIs7.0/7.5是对php解析时有一个类似于Nginx的解析漏洞，对任意文件名只要在URL后面追加上字符串"/任意文件名.php"就会按照php的方式去解析(IIS6.0没测试)
-            * 测试：测试了下面这些集成环境，都以它们的最新版本来测试，应该能覆盖所有低版本:
-              + IIS6.0(Win2003 SP2 + IIS6.0)[success]
-              + IIS7.0(Win2008 R1 + IIS7.0)[success]
-              + IIS7.5(Win2008 R2 + IIS7.5)[success]
-            * IIS的解析漏洞在市面上描述的版本还算明确，不像Apache那么模糊，针对IIS6.0只要文件名不被重命名基本都能搞定。这里要注意一点，对于任意文件名/任意文件名.php 这个漏洞其实是出现自php-cgi的漏洞，所以其实跟IIS自身是无关的，这个会在接下来讲到。
-            * 资料： drops.wooyun.org/papers/539(解析漏洞总结)
-            * 启示： 服务器一定要打最新的补丁
-          - Nginx
+        * 我们可以理解为先代码注入到服务器上，上传一个带有一句话木马的图片或文件之类让它待在某个位置，等待这一个解析的配合。（比如php的文件包含解析，web服务器的解析漏洞，.htaccess解析等）
+          1. 本地文件包含解析<br>
+          主要是php的本地文件包含（远程文件包含不属于上传攻击绕过范畴）
+          2. htaccess解析<br>
+          就不用多说了，看看之前.htaccess文件攻击的那个案例，用户自己定义如何去调用解析器解析文件就可以了。
+          3. web应用程序解析漏洞以及其原理
+            - Apache解析漏洞(属于白名单绕过)
+              * 解析：test.php.任意不属于黑名单且不属于Apache解析白名单的名称
+              * 描述：一个文件名为x1.x2.x3的文件，Apache会从x3的位置往x1的位置开始尝试解析，如果x3不属于Apache能解析的扩展名，那么Apache会尝试去解析x2的位置，这样一直往前尝试，直到遇到一个能解析的扩展名为止
+              * 测试：测试了下面这些集成环境，都以它们的最新版本来测试，应该能覆盖所有低版本：
+                + WampServer2.0 All Version(WampServer2.0i/Apache2.2.11)[Success]
+                + WampServer2.1 All Version(WampServer2.1e-x32/Apache2.2.17)[Success]
+                + Wamp5 All Version(Wamp5_1.7.4/Apache2.2.6)[Success]
+                + AppServ 2.4 All Version(AppServ-2.4.9/Apache 2.0.59)[success]
+                + AppServ 2.5 All Version(AppServ-2.5.10/Apache 2.2.8)[success]
+                + AppServ 2.6 All Version(AppServ-2.6.0/Apache 2.2.8)[success]
+              * 上面测试过的集成环境都有这个扩展名解析顺序漏洞，然后所有测试过的集成环境都有对php3扩展名按php解析这个小洞（本质上来说这个不算漏洞，只是在针对一些名单不全的黑名单时，能有绕过的机会）
+                （版本还要等测试过才能具体知晓）
+            - IIS解析漏洞
+              * 解析：test.asp/任意文件名| test.asp;任意文件名| 任意文件名/任意文件名.php
+              * 描述：IIS6.0在解析asp格式的时候有两个解析漏洞，一个是如果目录包含".asp"字符串，那么这个目录下所有的文件都会按照asp去解析，另一个是只要文件名中含有".asp;"会优先按asp来解析<br>
+                IIs7.0/7.5是对php解析时有一个类似于Nginx的解析漏洞，对任意文件名只要在URL后面追加上字符串"/任意文件名.php"就会按照php的方式去解析(IIS6.0没测试)
+              * 测试：测试了下面这些集成环境，都以它们的最新版本来测试，应该能覆盖所有低版本:
+                + IIS6.0(Win2003 SP2 + IIS6.0)[success]
+                + IIS7.0(Win2008 R1 + IIS7.0)[success]
+                + IIS7.5(Win2008 R2 + IIS7.5)[success]
+              * IIS的解析漏洞在市面上描述的版本还算明确，不像Apache那么模糊，针对IIS6.0只要文件名不被重命名基本都能搞定。这里要注意一点，对于任意文件名/任意文件名.php 这个漏洞其实是出现自php-cgi的漏洞，所以其实跟IIS自身是无关的，这个会在接下来讲到。
+              * 资料： drops.wooyun.org/papers/539(解析漏洞总结)
+              * 启示： 服务器一定要打最新的补丁
+            - Nginx
 
 
 ####0X06  上传攻击框架
