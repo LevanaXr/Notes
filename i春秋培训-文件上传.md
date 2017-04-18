@@ -76,8 +76,6 @@
   
   * 【？】以下哪个文件(或目录)不可以在iis6.0上以asp脚本执行执行   .asp  .asa .xhtml .cer
 
-
-
 ###0X01  IIS6.0站上的解析缺陷绕过上传漏洞
   * uploading/  ：文件上传的保存路径    filename="木马的名字"  
   在路径后面加上1.php;
@@ -116,7 +114,7 @@
 ##第三章  上传漏洞之编辑器篇
 
 ### 0X00  FCK编辑器”版本识别及信息收集技术演示
-  * “FCKeditor编辑器”是许多WEB页面都会采用的编辑器，例如百度空间里面的发表文章的文本编辑器，就是使用的FCKeditor编辑器。
+  * FCKeditor编辑器”是许多WEB页面都会采用的编辑器，例如百度空间里面的发表文章的文本编辑器，就是使用的FCKeditor编辑器。
   
   1. 查看FCK版本地址：
     + /_whatsnew.html(包含历史版本)
@@ -129,10 +127,9 @@
     * FCKeditor v2.6.6
       + /editor/filemanager/connectors/test.html
       + /editor/filemanager/connectors/uploadtest.html
-<br
 <br>
 <br>
-
+<br>
 
 
 #Web漏洞讲解—上传漏洞
